@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quiz App</title>
+	<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./custom/style.css">
+</head>
+<body>
+<div class="container">
+<div class="heading" id="mainTitle"></div>
+<div id="signupForm"> </div>
+
+</div>
+<script type="text/javascript" src="./bootstrap/js/jquery.min.js"></script>
+<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./build/react.js"></script>
+<script type="text/javascript" src="./build/react-dom.js"></script>
+<script src = "./babel/browser.js"></script>
+<script type="text/babel">
+	var Title = React.createClass({
+	render: function() {
+
+		return(
+			<div>
+				<h1 className = 'text-center'>Please Signup to Continue</h1>
+				<hr/>
+			</div>
+		);
+	}
+	
+});
+
+	
+	ReactDOM.render(
+		<Title />,
+		document.getElementById('mainTitle')
+	);
+	var SignupForm = React.createClass({
+
+		_validation : function(){
+			var test = {
+				email: document.getElementById('email').value,
+				pass: document.getElementById('pwd').value
+			}
+			localStorage.setItem('testObject', JSON.stringify(test));
+		},
+		render: function() {
+			return(
+			<form className="form-horizontal" action="login.html">
+			    <div className="form-group">
+			      <label className="control-label col-sm-2" htmlFor="email">Email: </label>
+			      <div className="col-sm-10">
+			        <input type="email" className="form-control" id="email" placeholder="Enter Email" required />
+			      </div>
+			    </div>
+			    <div className="form-group">
+			      <label className="control-label col-sm-2" htmlFor="pwd">Password:</label>
+			      <div className="col-sm-10">          
+			        <input type="password" className="form-control" id="pwd" placeholder="Enter password" required/>
+			      </div>
+			    </div>
+			    <div className="form-group">
+			        <button className = "btn btn-success" onClick = {this._validation}>Signup</button>
+			        <a href="index.html" className="btn btn-info">Back</a>
+			    </div>
+  		</form>
+			);
+		}
+
+	});
+	ReactDOM.render(
+	<SignupForm/>,
+	document.getElementById('signupForm')
+ 	);
+ </script>
+ </body>
+</html>

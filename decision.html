@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quiz App</title>
+
+	<link rel="stylesheet" href="../bootstrap-3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="../bootstrap-3.3.7/js/jquery.min.js"></script>
+	<script src="../bootstrap-3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container-fluid">
+	<div id="appHeading">
+		
+	</div>
+</div>
+<div class="container">
+	<div id="btnDiv">
+		
+	</div>
+</div>
+
+	<script src="../react-15.4.1/build/react.js"></script>
+	<script src="../react-15.4.1/build/react-dom.js"></script>
+	<script src="../react-15.4.1/babel/browser.js"></script>
+	
+	<script type="text/babel">
+		var quizHeading = React.createClass({
+			render: function(){
+				return (
+					<h1 className="text-center alert alert-info">React Quiz App</h1>
+				);
+			}
+		});
+
+		ReactDOM.render(
+			React.createElement(quizHeading),
+			document.getElementById("appHeading")
+		);
+
+		var signInBtn = React.createClass({
+			render: function(){
+				return (
+					<div className= "row">
+						<div className="col-sm-6">
+							<h2 className="alert alert-success"><a href="#">Recommended Courses:</a></h2>	
+						</div>
+						<div className="col-sm-6 ">
+							<h2 className="alert alert-success"><a href="#" className="create_link">Create Course:</a></h2>
+						</div>
+					</div>
+				);
+			}
+		});
+
+		ReactDOM.render(
+			React.createElement(signInBtn),
+			document.getElementById("btnDiv")	
+		);
+	</script>
+	<script>
+		
+
+		
+	</script>
+	</body>
+</html>

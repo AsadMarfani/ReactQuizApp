@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quiz App</title>
+	<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./custom/style.css">
+</head>
+<body>
+<div class="continer-fluid" id="backToQuiz"></div>
+<br><br>
+<div class="container" id="quizUI"></div>
+
+
+
+<script type="text/javascript" src="./bootstrap/js/jquery.min.js"></script>
+<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./build/react.js"></script>
+<script type="text/javascript" src="./build/react-dom.js"></script>
+<script src = "./babel/browser.js"></script>
+<script type="text/babel">
+var BackButton = React.createClass({
+	render: function(){
+	return(
+	<div>
+		<h4>Find It Hard? <a className = "btn btn-danger btn-md" href="main.html">Quit Quiz</a></h4>
+	</div>
+	);
+	}
+});
+ReactDOM.render(
+	<BackButton/>,
+	document.getElementById('backToQuiz')
+);
+var QuizUI = React.createClass({
+	render: function(){
+		return (
+		<div>
+			<h1 className="text-center text-primary">Quiz App!</h1>
+			<hr/>
+			<p id="questions">Question x of y</p>
+			<div id="buttons">
+			<center>
+			<button id="btn0" className="btn btn-lg custButton"><span id="choice0"></span></button>
+			<button id="btn1" className="btn btn-lg custButton"><span id="choice1"></span></button>
+			<button id="btn2" className="btn btn-lg custButton"><span id="choice2"></span></button>
+			<button id="btn3" className="btn btn-lg custButton"><span id="choice3"></span></button>
+			</center>
+			</div>
+			<hr/>
+			<footer>
+			<p id="progress">Question x of y</p>
+			</footer>
+		</div>
+		);
+
+	}
+
+});
+ReactDOM.render(
+	<QuizUI/>,
+	document.getElementById('quizUI')
+);
+
+function populate(){
+	if(quiz.isEnded()) {
+		showScores();
+	}
+	else {
+		document.getElementById('questions').innerHTML = "<b>Question No. "+(quiz.questionIndex + 1)+" : </b>"+quiz.getQuestionIndex().title;
+		var choices = quiz.getQuestionIndex().choices;
+		for(var i = 0; i < choices.length; i++) {
+			document.getElementById("choice"+i).textContent = choices[i];
+			guess("btn"+i,choices[i]);
+		}
+
+		showProgress();
+	}
+};
+
+function showScores() {
+	var gameOver = "<div class='jumbotron text-center'><h1 id='result' class='text-primary'>Result</h1></br>";
+	gameOver += "<h2>Your Have Earned : "+quiz.score+" point(s)</h2></div>";
+	console.log(gameOver);
+	document.getElementById('quizUI').innerHTML = gameOver;
+};
+
+function guess(id, selectedAnswer) {
+	var button = document.getElementById(id);
+	 console.log(button);
+	button.onclick = function() {
+		quiz.guess(selectedAnswer);
+		console.log(quiz.score);
+		populate();
+	}
+
+};
+function Quiz(questions) {
+	this.score = 0;
+	this.questions = questions;
+	this.questionIndex = 0;
+}
+
+Quiz.prototype.getQuestionIndex = function(){
+
+	return this.questions[this.questionIndex];
+
+};
+
+Quiz.prototype.isEnded = function () {
+	return this.questions.length === this.questionIndex;
+}
+
+Quiz.prototype.guess = function (answer) {
+	if(this.getQuestionIndex().checkAnswer(answer)) {
+		this.score++;
+	}
+	this.questionIndex++;
+}
+function Questions(title,choices,answer) {
+	this.title = title;
+	this.choices = choices;
+	this.answer = answer;
+}
+
+Questions.prototype.checkAnswer = function(selectedChoice) {
+	return selectedChoice === this.answer;
+};
+function showProgress() {
+	var currentQuestion = quiz.questionIndex + 1;
+	document.getElementById('progress').textContent = "Question "+currentQuestion+" of "+quiz.questions.length;
+}
+
+var questions = [
+	
+	new Questions ("Which one is not an Object Oriented Programming Language?",["C#","Java","C","Python"],"C"),
+	new Questions ("Which one is used for styling Web Pages?",["HTML","JavaScript","PHP","CSS"],"CSS"),
+	new Questions ("Which tag is introduced in HTML5?",["footer","img","div","h1"],"footer"),
+	new Questions ("The upcoming version of Angular is?",["Angular 2 ","Angular 3","Angular 4","Angular 6"],"Angular 4"),
+	new Questions ("MVC is a ______",["Platform","Framework","Language","All"],"Framework")
+];
+
+var quiz = new Quiz(questions);
+
+populate();
+</script>
+
+</body>
+</html>

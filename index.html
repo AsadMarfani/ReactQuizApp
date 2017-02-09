@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quiz App</title>
+	<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./custom/style.css">
+
+</head>
+<body>
+<div class="container">
+<div class="heading" id="mainTitle"></div>
+<div class="row">
+	<div class="col-md-6" id=login></div>
+	<div class="col-md-6" id=signup></div>
+</div>
+</div>
+<script type="text/javascript" src="./bootstrap/js/jquery.min.js"></script>
+<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./build/react.js"></script>
+<script type="text/javascript" src="./build/react-dom.js"></script>
+<script src = "./babel/browser.js"></script>
+
+<script type="text/babel">
+var Title = React.createClass({
+	render: function() {
+
+		return(
+			<div>
+				<h1 className = 'text-center'>Welcome to <b>QuizBox</b>...</h1>
+				<hr/>
+			</div>
+		);
+	}
+	
+});
+
+	
+	ReactDOM.render(
+		<Title />,
+		document.getElementById('mainTitle')
+	);
+	var Login = React.createClass({
+	render: function() {
+		return (
+			<a href = "login.html" className = "btn btn-success btn-block">Login</a>
+		);
+	}
+
+});
+	ReactDOM.render(
+		<Login />,
+		document.getElementById('login')
+	);
+
+var Signup = React.createClass({
+	render: function() {
+		return(
+			<a href = "signup.html" className = "btn btn-info btn-block">Signup</a>	
+		);
+	}
+
+});
+
+	ReactDOM.render(
+		<Signup/>,
+		document.getElementById('signup')
+	);
+</script>
+</body>
+</html>

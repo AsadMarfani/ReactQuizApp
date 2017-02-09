@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quiz App</title>
+	<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./custom/style.css">
+</head>
+<body>
+<div class="container">
+<div class="heading" id="mainTitle"></div>
+<div id="loginForm"> </div>
+</div>
+<script type="text/javascript" src="./bootstrap/js/jquery.min.js"></script>
+<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./build/react.js"></script>
+<script type="text/javascript" src="./build/react-dom.js"></script>
+<script src = "./babel/browser.js"></script>
+<script type="text/babel">
+	var Title = React.createClass({
+	render: function() {
+		return(
+			<div>
+				<h1 className = 'text-center'>Please Login to Continue</h1>
+				<hr/>
+			</div>
+		);
+	}
+	
+});
+	ReactDOM.render(
+		<Title />,
+		document.getElementById('mainTitle')
+	);
+	var LoginForm = React.createClass({
+		_checkParams: function(e){
+	e.preventDefault();
+	console.log('Button Clicked');
+	var retrievedObject = localStorage.getItem('testObject');
+     var result = JSON.parse(retrievedObject);
+     console.log(result);
+		var email = document.getElementById('email').value;
+		var pwd = document.getElementById('pwd').value;
+		if (result.email === email && result.pass === pwd){
+			window.location.href = 'main.html'
+		}
+		else {
+			alert('Try Again');
+		}
+	},
+		render: function() {
+			return(
+			<form className="form-horizontal">
+			    <div className="form-group">
+			      <label className="control-label col-sm-2" htmlFor="email">Email: </label>
+			      <div className="col-sm-10">
+			        <input type="email" className="form-control" id="email" placeholder="Enter Email" required/>
+			      </div>
+			    </div>
+			    <div className="form-group">
+			      <label className="control-label col-sm-2" htmlFor="pwd">Password:</label>
+			      <div className="col-sm-10">          
+			        <input type="password" className="form-control" id="pwd" placeholder="Enter password" required/>
+			      </div>
+			    </div>
+			    <div className="form-group">
+			    	<input type="button" className="btn btn-success" onClick = {this._checkParams} value="Login" />
+			        <a href="index.html" className="btn btn-info">Back</a>
+			    </div>
+  		</form>
+			);
+		}
+
+	});
+
+	ReactDOM.render(
+	<LoginForm/>,
+	document.getElementById('loginForm')
+ 	);
+ </script>
+</body>
+</html>
